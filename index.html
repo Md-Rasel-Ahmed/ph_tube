@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>PH TUBE</title>
+  </head>
+  <body>
+    <!-- Navbar desing started -->
+    <header class="w-7/8 mx-auto">
+      <nav>
+        <div class="flex justify-around border-b-2 border-gray-300 p-3">
+          <div class="logo">
+            <img src="./Logo.png" alt="" />
+          </div>
+          <div class="sort">
+            <button class="btn">Short By Views</button>
+          </div>
+          <div class="bolog">
+            <button class="btn btn-error">Blog</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="w-7/8 mx-auto">
+      <!-- categoris button -->
+      <div
+        id="category_buttons"
+        class="catagory flex items-center justify-center mt-5 gap-4"
+      >
+        <button class="btn">one</button>
+        <button class="btn">one</button>
+        <button class="btn">one</button>
+      </div>
+
+      <!-- videos  -->
+      <div
+        id="video_container"
+        class="contaner mt-5 flex flex-wrap justify-center gap-2"
+      >
+        <!-- <div class="card w-80 rounded-lg border border-gray-300">
+          <div class="card-img">
+            <img src="https://i.ibb.co/L1b6xSq/shape.jpg" alt="" />
+          </div>
+          <div class="flex gap-2 mt-2">
+            <div class="profile_img">
+              <div class="avatar">
+                <div class="w-12 rounded-full">
+                  <img
+                    src="https://img.daisyui.com/images/profile/demo/idiotsandwich@192.webp"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="info">
+              <h1>Title here</h1>
+              <p>Md Rasel <span id="verified">V</span></p>
+              <p>91K Views</p>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </main>
+    <footer
+      class="mt-4 footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4"
+    >
+      <aside>
+        <p>
+          Copyright © {new Date().getFullYear()} - All right reserved by ACME
+          Industries Ltd
+        </p>
+      </aside>
+    </footer>
+    <script src="index.js"></script>
+  </body>
+</html>
