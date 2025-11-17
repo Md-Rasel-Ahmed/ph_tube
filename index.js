@@ -8,24 +8,35 @@ const lodedButton= async()=>{
 const displayButton=(data)=>{
    const category_buttons=document.getElementById("category_buttons")
    data.forEach(data => {
-     category_buttons.innerHTML=`
-       <button class="btn">${data.category}</button>
-        <button class="btn">${data.category}</button>
-        <button class="btn">${data.category}</button>
+     category_buttons.innerHTML +=`
+       <button id=${data.category_id} onClick=clickCategoris(${data.category_id}) class="btn category_btn">${data.category}</button>
      `     
+     
    });
    
 }
 lodedButton()
 
-const lodedVideos=async()=>{
-    const res=await fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
-    const data= await res.json()
-    displayVideo(data.videos)
-}
-const displayVideo=(videos)=>{
-    const videosContainer=document.getElementById("video_container")
-   for(const video of videos){
+const clickCategoris=(id)=>{
+  const btn=document.getElementsByClassName("category_btn")
+  for(const b of btn){
+    if(b.id==id){
+
+      b.classList.add("bg-error")
+    }else{
+      b.classList.remove("bg-error")
+    }
+    console.log(b);
+    
+  }
+  
+  
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
+    .then(res=>res.json())
+    .then(data=>{
+      const videosContainer=document.getElementById("video_container")
+       videosContainer.innerHTML=""
+      for(const video of data.category){
     
     videosContainer.innerHTML+=`
      <div class="card w-80 rounded-lg border  border-gray-300 mt-3">
@@ -50,14 +61,105 @@ const displayVideo=(videos)=>{
 </svg>
 </span>`:""
               } </p>
-              <p>91K Views</p>
+              <p>${video.others.views} Views</p>
             </div>
           </div>
         </div>
     `
-    console.log(video);
+    
+   }
+      
+    })
+
+}
+
+const lodedVideos=async()=>{
+    const res=await fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+    const data= await res.json()
+    displayVideo(data.videos)
+}
+
+let videoarr=[]
+const displayVideo=(videos)=>{
+    const videosContainer=document.getElementById("video_container")
+     videoarr.push(videos)
+    for(const video of videos){
+    videoarr.push(video)
+    videosContainer.innerHTML+=`
+     <div class="card w-80 rounded-lg border  border-gray-300 mt-3">
+          <div class="card-img">
+            <img class="w-full h-50 rounded-lg" src=${video.thumbnail} alt="" />
+          </div>
+          <div class="flex gap-2 mt-2 p-2">
+            <div class="profile_img">
+              <div class="avatar">
+                <div class="w-12 rounded-full">
+                  <img
+                    src=${video.authors[0].profile_picture}
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="info">
+              <h1 class="text-lg font-bold">${video.description.slice(0, 50)}</h1>
+              <p class="flex items-center gap-1">${video.authors[0].profile_name} ${
+                video.authors[0].verified?`<span title="Verified" id="verified"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-blue-500 cursor-pointer">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+</svg>
+</span>`:""
+              } </p>
+              <p>${video.others.views} Views</p>
+            </div>
+          </div>
+        </div>
+    `
     
    }
    
 }
 lodedVideos()
+
+// search implement
+const searchBtn=document.getElementById("search_btn").addEventListener("click",function(){
+  const searchInput=document.getElementById("search_input")
+  const value=searchInput.value;
+   const result=videoarr.filter(v=> v.description?.toLowerCase()?.includes(value.toLowerCase()))
+     
+       const videosContainer=document.getElementById("video_container")
+       videosContainer.innerHTML=""
+      for(const video of result){
+    
+    videosContainer.innerHTML+=`
+     <div class="card w-80 rounded-lg border  border-gray-300 mt-3">
+          <div class="card-img">
+            <img class="w-full h-50 rounded-lg" src=${video.thumbnail} alt="" />
+          </div>
+          <div class="flex gap-2 mt-2 p-2">
+            <div class="profile_img">
+              <div class="avatar">
+                <div class="w-12 rounded-full">
+                  <img
+                    src=${video.authors[0].profile_picture}
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="info">
+              <h1 class="text-lg font-bold">${video.description.slice(0, 50)}</h1>
+              <p class="flex items-center gap-1">${video.authors[0].profile_name} ${
+                video.authors[0].verified?`<span title="Verified" id="verified"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-blue-500 cursor-pointer">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+</svg>
+</span>`:""
+              } </p>
+              <p>${video.others.views} Views</p>
+            </div>
+          </div>
+        </div>
+    `
+    
+   }
+  
+  searchInput.value=""
+  
+})

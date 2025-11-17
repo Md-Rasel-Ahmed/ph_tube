@@ -9,6 +9,11 @@
       type="text/css"
     />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      .active {
+        background-color: red;
+      }
+    </style>
     <title>PH TUBE</title>
   </head>
   <body>
@@ -33,12 +38,18 @@
       <div
         id="category_buttons"
         class="catagory flex items-center justify-center mt-5 gap-4"
-      >
-        <button class="btn">one</button>
-        <button class="btn">one</button>
-        <button class="btn">one</button>
+      ></div>
+      <!-- search implement -->
+      <div class="w-96 mx-auto mt-5">
+        <input
+          class="p-2"
+          placeholder="Search here..."
+          type="text"
+          name="name"
+          id="search_input"
+        />
+        <button id="search_btn" class="btn btn-error">Search</button>
       </div>
-
       <!-- videos  -->
       <div
         id="video_container"
